@@ -2,16 +2,24 @@
 import csv
 import os
 
+#name variables
+
 Total_Votes = 0
 candidate = []
 percentage = []
 candidate_votes = {}
 
+ #import csv
+
 import_csv_file = os.path.join("Resources", "election_data.csv")
+
+#skip header row
 
 with open(import_csv_file, "r") as data:
     csvreader = csv.reader(data)
     header_row = next(csvreader)
+
+#count votes & votes per candidate 
 
     for x in csvreader:
         Total_Votes = Total_Votes + 1
@@ -22,11 +30,13 @@ with open(import_csv_file, "r") as data:
         else:
             candidate_votes[candidate] = 1  
 
+#calculate winner
+
 for key in candidate_votes.keys():
     if candidate_votes[key] == max(candidate_votes.values()):
         winner = key 
 
-          
+#print results          
 
 print("Election Results")
 print("------------------------")
@@ -38,6 +48,8 @@ for i in candidate_votes:
 print("------------------------")
 print(f"Winner: {winner}")   
 print("------------------------")   
+
+#export & format text file to show results
 
 export_text_file = os.path.join("Analysis", "Election_Results.txt")
 with open(export_text_file, "w") as text_file:
